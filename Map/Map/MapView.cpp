@@ -87,6 +87,8 @@ void CMapView::OnDraw(CDC* pDC)
 	pDC->SelectObject(pOldBrush);
 
 	// 점 선택
+	pDC->SelectStockObject(BLACK_BRUSH);
+	pDC->Ellipse(m_select.x - POINT_SIZE, m_select.y - POINT_SIZE, m_select.x + POINT_SIZE, m_select.y + POINT_SIZE);
 	CPen bluePen(PS_SOLID, 2, RGB(0, 0, 255));
 	pOldPen = pDC->SelectObject(&bluePen);
 	for (int i = 0; i < 2; i++) {
@@ -96,6 +98,7 @@ void CMapView::OnDraw(CDC* pDC)
 		}
 	}
 	pDC->SelectObject(pOldPen);
+	
 
 	// 경로 그리기
 	CPen RedPen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -256,6 +259,7 @@ void CMapView::OnLButtonDown(UINT nFlags, CPoint point)
 			CRgn rgn;
 			rgn.CreateEllipticRgn(m_pointArr[i].x - POINT_SIZE, m_pointArr[i].y - POINT_SIZE, m_pointArr[i].x + POINT_SIZE, m_pointArr[i].y + POINT_SIZE);
 			if (rgn.PtInRegion(point)) {
+				m_select = m_pointArr[i];
 				int index = m_polyLine.GetCount();
 				if (index-- > 0) 
 					m_polyLine[index].m_points.Add(m_pointArr[i]);
@@ -305,10 +309,29 @@ void CMapView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 					m_polyLine[line_idx - 1].m_points.RemoveAt(point_idx - 1, 1);
 			}
 		}
+
+		Invalidate();
+		break;
+	}
+	case VK_BACK: {
+		bool bHasPath = false;
+		int polyCount = m_polyLine.GetCount();
+
+		for (int i = 0; i < polyCount; i++) {
+			if (m_polyLine[i].m_points.GetCount() > 0) {
+				bHasPath = true;
+				break;
+			}
+		}
+
+		int pointCount = m_pointArr.GetCount();
+		if (pointCount > 0) {
+			m_pointArr.RemoveAt(pointCount - 1);
+		}
+		Invalidate();
 		break;
 	}
 	}
 
-	Invalidate();
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

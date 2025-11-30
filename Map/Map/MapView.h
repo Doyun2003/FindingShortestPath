@@ -20,6 +20,7 @@ protected:
 
 	CArray<CPoint, CPoint> m_pointArr;
 	int m_selectPoint[2];
+	CPoint m_select;
 	CArray<CMyLine, CMyLine&> m_polyLine;
 
 	std::vector<int> m_shortestPath;
