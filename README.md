@@ -29,6 +29,7 @@ MFC를 이용하여 구현한 지도 기반 최단 경로 탐색 프로그램입
 | **최단 경로 탐색** | `Alt` + `Shift` + `L-Click` | 시작점과 도착점을 순서대로 클릭하면 최단 경로가 녹색으로 표시됩니다. |
 | **경로 삭제** | `Delete` | 마지막에 추가한 경로를 삭제합니다. |
 | **이전 경로 삭제** | `Ctrl` + `Delete` | 더블 클릭으로 경로를 초기화해서 선이 삭제가 안될 때 사용하여 이전 경로를 삭제할 수 있도록 설정합니다. |
+| **점 삭제** | `Backspace` | 경로가 안그려져 있을 때 노드를 순서대로 삭제합니다. |
 
 ## 개발 환경 (Environment)
 
@@ -36,6 +37,11 @@ MFC를 이용하여 구현한 지도 기반 최단 경로 탐색 프로그램입
 * **Framework:** MFC (Microsoft Foundation Class)
 * **IDE:** Visual Studio 2022
 * **Algorithm:** Dijkstra Algorithm (Graph Theory)
+
+
+## 실행 화면
+
+![실행 화면](./images/shortestPath.PNG)
 
 
 ## 설치 및 실행 (How to Run)
